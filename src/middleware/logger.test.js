@@ -1,30 +1,30 @@
-// 'use strict';
+'use strict';
 
-// const logger = require('./logger');
+const logger = require('./logger');
 
-// describe('Logger Middleware', () => {
-//   let consoleSpy;
-//   const req = {};
-//   const res = {};
-//   const next = jest.fn();
+describe('Logger Middleware', () => {
+  let consoleSpy;
+  const req = {};
+  const res = {};
+  const next = jest.fn();
 
-//   beforeEach(() => {
-//     consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-//   })
+  beforeEach(() => {
+    consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+  })
 
-//   afterEach(() => {
-//     consoleSpy.mockRestore();
-//   })
+  afterEach(() => {
+    consoleSpy.mockRestore();
+  })
 
-//   it('Log some output', () => {
-//     logger(req, res, next)
-//     console.info(consoleSpy)
-//     expect(consoleSpy).toHaveBeenCalled();
-//   })
+  it('Log some output', () => {
+    logger(req, res, next)
+    console.info(consoleSpy)
+    expect(consoleSpy).toHaveBeenCalled();
+  })
   
-//   it('Moving to the next function', () => {
-//     logger(req, res, next)
-//     expect(next).toHaveBeenCalledWith();
+  it('Moving to the next function', () => {
+    logger(req, res, next)
+    expect(next).toHaveBeenCalledWith();
     
-//   })
-// })
+  })
+})

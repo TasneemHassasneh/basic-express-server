@@ -1,25 +1,41 @@
-// 'use strict';
+'use strict';
 
-// const supertest = require('supertest');
-// const {app} = require('../src/server');
-// const req = supertest(app);
+const request = require('supertest');
+const { app } = require('../src/server');
+const req = request(app);
 
-// describe('Server test', () => {
-//   it('Handel not found pages', async () => {
-//     const res = await req.get('/items');
-//     expect(res.status).toEqual(404);
-//   });
+describe('Server', () => {
+  describe('GET /person', () => {
+    it('should respond with a JSON object containing the name', async () => {
+      const name = 'John';
+      const response = await request(app).get(`/person?name=${name}`);
 
-//   it('Handle the root path', async () => {
-//     const res = await req.get('/');
-//     // console.log(res.body.message)
-//     expect(res.status).toEqual(200);
-//     expect(res.body.message).toEqual('Welcome to Home page')
-//   })
+      expect(response.status).toEqual(200);
+      expect(response.body).toEqual({ name });
+    });
 
-//   it('Handle errors', async () => {
-//     const res = await req.get('/bad');
-//     expect(res.status).toEqual(500);
-//     expect(res.body.route).toEqual('/bad');
-//   })
-// })
+    it('should respond with 500 if name is missing in the query string', async () => {
+      const response = await request(app).get('/person');
+      expect(response.status).toEqual(500);
+    });
+  });
+
+  describe('GET /', () => {
+    it('should respond with a JSON object containing a welcome message', async () => {
+      const response = await request(app).get('/');
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toEqual({
+        code: 200,
+        message: 'Welcome to Home page',
+      });
+    });
+  });
+
+  describe('404 Not Found', () => {
+    it('Handel not found pages', async () => {
+        const res = await req.get('/items');
+        expect(res.status).toEqual(404);
+    });
+  });
+});

@@ -16,6 +16,8 @@ const serverError = require('../src/error-handlers/500');
 
 app.use(logger);
 
+
+
 //* Routes
 app.get('/person', validator, (req, res) => {
   const name = req.query.name;
@@ -30,9 +32,11 @@ app.get('/',(req, res) => {
 });
 
 
-app.use(validator);
+
+
 app.use('*', pagNotFound);
 app.use(serverError);
+app.use(validator);
 
 function start(port) {
     app.listen(port, () => console.log('Up and running on port: ', port))
